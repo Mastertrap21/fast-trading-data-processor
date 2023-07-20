@@ -5,6 +5,7 @@
 
 #include "Library.h"
 
+#pragma pack(push, 1)
 template <typename Timestamp, typename Stock, typename Amount, typename Price>
 struct TradeTransactionInfo {
     static_assert(std::is_integral<Timestamp>::value, "Timestamp type is not valid"); // make sure at compile time that Timestamp is valid
@@ -15,7 +16,8 @@ public:
     Stock stock;
     Amount amount;
     Price price;
-} __attribute__((packed,aligned(1)));
+};
+#pragma pack(pop)
 
 template <typename Timestamp, typename Stock, typename Amount, typename Price>
 struct DynamicTradeTransactionInfo : public TradeTransactionInfo<Timestamp, Stock, Amount, Price>, public Item<DynamicVisitor> {

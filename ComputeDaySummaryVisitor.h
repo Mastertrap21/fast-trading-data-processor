@@ -1,6 +1,9 @@
 #ifndef FTDP_COMPUTEDAYSUMMARYVISITOR_H
 #define FTDP_COMPUTEDAYSUMMARYVISITOR_H
 
+#undef min
+#undef max
+
 
 #include <string>
 #include <memory>

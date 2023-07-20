@@ -1,6 +1,9 @@
 #ifndef FTDP_DAYSUMMARY_H
 #define FTDP_DAYSUMMARY_H
 
+#undef min
+#undef max
+
 #include <limits>
 
 template <class DayNumber, class Price>

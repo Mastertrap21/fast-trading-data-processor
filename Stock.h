@@ -1,6 +1,7 @@
 #ifndef FTDP_STOCK_H
 #define FTDP_STOCK_H
 
+#include <string>
 #include <memory>
 #include <map>
 #include "DayHistory.h"
