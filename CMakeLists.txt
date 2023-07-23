@@ -10,4 +10,4 @@ add_executable(fast-trading-data-processor ${SOURCE_FILES})
 install(TARGETS fast-trading-data-processor)
 
 enable_testing()
-add_test(NAME fast-trading-data-processor COMMAND main)
+add_test(NAME main COMMAND fast-trading-data-processor)
