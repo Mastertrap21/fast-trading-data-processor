@@ -1,4 +1,7 @@
-#include <windows.h>
+#if _WIN32
+    #include <windows.h>
+#endif
+#include <cstring>
 #include <iostream>
 #include <fstream>
 #include <memory>
@@ -10,6 +13,9 @@
 #include "SaveDaySummaryDynamicVisitor.h"
 #include "SaveDaySummaryStaticVisitor.h"
 
+using namespace std;
+
+#if _WIN32
 // Function that maps a file into memory and loads the data using a functor passed argument
 template<typename Functor>
 void loadMemoryMappedData(const char *filename, Functor loadData) noexcept {
@@ -45,6 +51,7 @@ void loadMemoryMappedData(const char *filename, Functor loadData) noexcept {
         CloseHandle(fileHandle); // close the file handle
     }
 }
+#endif
 
 // Function that reads a file using a file stream and loads the data using a functor passed argument
 template<typename Functor>
@@ -69,7 +76,7 @@ void dynamicPolymorphism() noexcept {
     std::map<std::string, std::unique_ptr<DynamicStockT>> dynamicStocks; // keep a map of the stocks
     LoadTradingDataDynamicVisitor loadTradingDataDynamicVisitor{&dynamicStocks}; // create the visitor
     // Use the file memory mapper function to load the data and pass the dynamic polymorphism loading implementation as lambda
-    loadMemoryMappedData("stocks.bin", [&loadTradingDataDynamicVisitor] (const TradeTransactionInfoT &tradeTransactionInfo){
+    loadStreamedData("stocks.bin", [&loadTradingDataDynamicVisitor] (const TradeTransactionInfoT &tradeTransactionInfo){
         // create the visitable structure
         auto dynamicTradeTransactionInfo = new DynamicTradeTransactionInfoT(tradeTransactionInfo.timestamp, tradeTransactionInfo.amount, tradeTransactionInfo.price);
         strcpy(dynamicTradeTransactionInfo->stock, tradeTransactionInfo.stock); // this could maybe be in constructor as well but it is array of chars :(
@@ -97,7 +104,7 @@ void staticPolymorphism() noexcept {
     auto t0 = std::chrono::high_resolution_clock::now();
     std::map<std::string, std::unique_ptr<StockT>> staticStocks;
     LoadTradingDataStaticVisitor loadTradingDataStaticVisitor{&staticStocks};
-    loadMemoryMappedData("stocks.bin", [&loadTradingDataStaticVisitor] (const TradeTransactionInfoT &tradeTransactionInfo){
+    loadStreamedData("stocks.bin", [&loadTradingDataStaticVisitor] (const TradeTransactionInfoT &tradeTransactionInfo){
         auto staticTradeTransactionInfo = new StaticTradeTransactionInfoT(tradeTransactionInfo.timestamp, tradeTransactionInfo.amount, tradeTransactionInfo.price);
         strcpy(staticTradeTransactionInfo->stock, tradeTransactionInfo.stock);
         visitor_traits<TradeTransactionInfoT>::accept(loadTradingDataStaticVisitor, *staticTradeTransactionInfo); // make the structure accept the visitor
