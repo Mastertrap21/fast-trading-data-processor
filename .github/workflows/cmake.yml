@@ -11,13 +11,15 @@ jobs:
   build:
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
-    matrix:
-      config:
-      - {
-          name: "Ubuntu Latest GCC",
-          os: ubuntu-latest,
-          cc: "gcc", cxx: "g++"
-        }
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {
+            name: "Ubuntu Latest GCC",
+            os: ubuntu-latest,
+            cc: "gcc", cxx: "g++"
+          }
     steps:
     - uses: actions/checkout@v3
     
