@@ -392,3 +392,6 @@ FodyWeavers.xsd
 dist/
 package/
 out/
+build/
+CMakeFiles/
+Testing/
