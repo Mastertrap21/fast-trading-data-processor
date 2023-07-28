@@ -43,7 +43,7 @@ jobs:
 
     - name: Test
       working-directory: ${{github.workspace}}/build
-      run: ctest --progress && lcov -c -d . -o main_coverage.info
+      run: ctest --progress && lcov -c -d . -o main_coverage.info && lcov -r main_coverage.info "usr/*" && lcov -r main_coverage.info "gtest/*"
       
     - name: Publish coverage report to coveralls.io   
       uses: coverallsapp/github-action@v2
