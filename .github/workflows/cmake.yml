@@ -39,7 +39,7 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
       
     - name: Install lcov
-      run: sudo apt-get install perl libdatetime-perl libcapture-tiny-perl libdatetime-format-dateparse-perl -y && wget https://github.com/linux-test-project/lcov/releases/download/v2.0/lcov-2.0.tar.gz -O lcov-2.0.tar.gz && tar -xf lcov-2.0.tar.gz && cd lcov-2.0 && sudo make install
+      run: sudo apt-get install perl libdatetime-perl libcapture-tiny-perl libdatetime-format-dateparse-perl -y && wget https://github.com/linux-test-project/lcov/releases/download/v1.16/lcov-1.16.tar.gz -O lcov-1.16.tar.gz && tar -xf lcov-1.16.tar.gz && cd lcov-1.16 && sudo make install
 
     - name: Test
       working-directory: ${{github.workspace}}/build
