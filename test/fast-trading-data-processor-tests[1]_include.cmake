@@ -1,5 +1,0 @@
-if(EXISTS "/mnt/d/VisualStudioProjects/fast-trading-data-processor/test/fast-trading-data-processor-tests[1]_tests.cmake")
-  include("/mnt/d/VisualStudioProjects/fast-trading-data-processor/test/fast-trading-data-processor-tests[1]_tests.cmake")
-else()
-  add_test(fast-trading-data-processor-tests_NOT_BUILT fast-trading-data-processor-tests_NOT_BUILT)
-endif()
